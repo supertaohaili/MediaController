@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/controls_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="#aC000000"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:paddingLeft="5dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/bg_title_back_btn" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:paddingLeft="5dp"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginRight="3dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/img_create_room" />
+
+        <LinearLayout
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="3dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/img_small_screen"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:text="18:40"
+            android:textColor="@android:color/white"
+            android:textSize="13sp" />
+
+        <com.thl.www.mediaController.BatteryView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="25dp"
+            android:layout_height="11dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="12dp"
+            app:borderColor="#ffffff"
+            app:borderWidth="1dp"
+            app:head_orientation="left"
+            app:number_text_size="10sp"
+            app:progress_color="#ffffff"
+            app:show_type="fill" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="#aC000000"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/current_time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="00:00"
+                android:textColor="#ffffffff"
+                android:textStyle="bold" />
+
+            <SeekBar
+                android:id="@+id/seek_bar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1.0"
+                android:background="@null"
+                android:max="100"
+                android:maxHeight="12dp"
+                android:minHeight="12dp"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:progressDrawable="@drawable/video_seek_progress_m"
+                android:thumb="@drawable/video_seek_thumb"
+                android:thumbOffset="0dp"
+                tools:progress="50" />
+
+            <TextView
+                android:id="@+id/total_time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="00:00"
+                android:textColor="#ffffffff"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/skip_previous"
+                style="@android:style/MediaButton.Previous"
+                android:src="@drawable/ic_skip_previous_white_36dp" />
+
+            <ImageButton
+                android:id="@+id/fast_rewind"
+                style="@android:style/MediaButton.Rew"
+                android:src="@drawable/ic_fast_rewind_white_36dp" />
+
+            <com.thl.www.mediaController.PausePlayButton
+                android:id="@+id/pause_play"
+                style="@android:style/MediaButton" />
+
+            <ImageButton
+                android:id="@+id/fast_forward"
+                style="@android:style/MediaButton.Ffwd"
+                android:src="@drawable/ic_fast_forward_white_36dp" />
+
+            <ImageButton
+                android:id="@+id/skip_next"
+                style="@android:style/MediaButton.Next"
+                android:src="@drawable/ic_skip_next_white_36dp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

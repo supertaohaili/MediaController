@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.thl.www.mediaController.sample">
+
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.thl.www.mediaController.sample.MainActivity">
+
+        </activity>
+        <activity android:name="com.thl.www.mediaController.sample.MusicActivity" />
+        <activity android:name="com.thl.www.mediaController.sample.VideoViewActivity" />
+        <activity android:name="com.thl.www.mediaController.sample.CustomizedActivity" />
+        <activity android:name="com.thl.www.mediaController.sample.ExoPlayerActivity" />
+        <activity android:name="com.thl.www.mediaController.sample.legacy.McMusicActivity" />
+        <activity android:name="com.thl.www.mediaController.sample.legacy.McVideoViewActivity" />
+        <activity android:name="com.thl.www.mediaController.sample.legacy.McExoPlayerActivity" />
+        <activity android:name="com.thl.www.mediaController.sample.VlcPlayerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

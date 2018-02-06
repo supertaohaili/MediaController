@@ -2,10 +2,12 @@
 VLC 视频的控制器，实现了控制器基本功能
 
 # 效果图
-
  <img src="https://github.com/supertaohaili/MediaController/blob/master/S80206-14473857.jpg" width="600">
+
+
 # 使用
 ```java
+
 allprojects {
     repositories {
 	  ...

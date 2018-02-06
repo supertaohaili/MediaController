@@ -6,7 +6,7 @@ VLC 视频的控制器，实现了控制器基本功能
 
 
 # 使用
-```java
+```
 
 allprojects {
     repositories {

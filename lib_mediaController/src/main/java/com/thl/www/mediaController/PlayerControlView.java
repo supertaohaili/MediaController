@@ -15,6 +15,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.RelativeLayout;
@@ -41,6 +42,7 @@ public class PlayerControlView extends FrameLayout {
     public LinearLayout llt_bottom;
 
     private OnClickListener nextListener, prevListener;
+    private OnClickListener backListener, shareListener, smallListener;
     private OnVisibilityChangedListener onVisibilityChangedListener;
 
     private Runnable updateProgressRunnable = new Runnable() {
@@ -93,6 +95,9 @@ public class PlayerControlView extends FrameLayout {
         viewHolder.fastRewindButton.setOnClickListener(componentListener);
         viewHolder.skipPrevButton.setOnClickListener(componentListener);
         viewHolder.skipNextButton.setOnClickListener(componentListener);
+        viewHolder.iv_share.setOnClickListener(componentListener);
+        viewHolder.iv_back.setOnClickListener(componentListener);
+        viewHolder.llt_small.setOnClickListener(componentListener);
         viewHolder.seekBar.setOnSeekBarChangeListener(componentListener);
         viewHolder.seekBar.setMax(1000);
 
@@ -351,6 +356,11 @@ public class PlayerControlView extends FrameLayout {
         viewHolder.fastRewindButton.setEnabled(enabled);
         viewHolder.skipNextButton.setEnabled(enabled && nextListener != null);
         viewHolder.skipPrevButton.setEnabled(enabled && prevListener != null);
+
+        viewHolder.iv_share.setEnabled(enabled && shareListener != null);
+        viewHolder.iv_back.setEnabled(enabled && backListener != null);
+        viewHolder.llt_small.setEnabled(enabled && smallListener != null);
+
         viewHolder.seekBar.setEnabled(enabled);
         disableUnsupportedButtons();
         super.setEnabled(enabled);
@@ -381,8 +391,22 @@ public class PlayerControlView extends FrameLayout {
 
     public void setNextListener(@Nullable OnClickListener nextListener) {
         this.nextListener = nextListener;
-        MediaController a;
         viewHolder.skipNextButton.setVisibility(nextListener == null ? View.INVISIBLE : View.VISIBLE);
+    }
+
+    public void setBackListener(@Nullable OnClickListener backListener) {
+        this.backListener = backListener;
+        viewHolder.iv_back.setVisibility(backListener == null ? View.INVISIBLE : View.VISIBLE);
+    }
+
+    public void setShareListener(@Nullable OnClickListener shareListener) {
+        this.shareListener = shareListener;
+        viewHolder.iv_share.setVisibility(shareListener == null ? View.INVISIBLE : View.VISIBLE);
+    }
+
+    public void setSmallListener(@Nullable OnClickListener smallListener) {
+        this.smallListener = smallListener;
+        viewHolder.llt_small.setVisibility(smallListener == null ? View.INVISIBLE : View.VISIBLE);
     }
 
     public void setFastRewindMs(int fastRewindMs) {
@@ -439,6 +463,10 @@ public class PlayerControlView extends FrameLayout {
         public final ImageButton skipNextButton;
         public final ImageButton skipPrevButton;
 
+        public final ImageView iv_share;
+        public final ImageView iv_back;
+        public final View llt_small;
+        public final TextView tv_title;
 
         private ViewHolder(View view) {
             controlsBackground = (RelativeLayout) view.findViewById(R.id.controls_background);
@@ -450,6 +478,11 @@ public class PlayerControlView extends FrameLayout {
             seekBar = (SeekBar) view.findViewById(R.id.seek_bar);
             totalTimeText = (TextView) view.findViewById(R.id.total_time_text);
             currentTimeText = (TextView) view.findViewById(R.id.current_time_text);
+
+            tv_title = (TextView) view.findViewById(R.id.tv_title);
+            iv_share = (ImageView) view.findViewById(R.id.iv_share);
+            iv_back = (ImageView) view.findViewById(R.id.iv_back);
+            llt_small = view.findViewById(R.id.llt_small);
 
         }
     }
@@ -480,6 +513,18 @@ public class PlayerControlView extends FrameLayout {
             } else if (v == viewHolder.skipNextButton) {
                 if (nextListener != null) {
                     nextListener.onClick(v);
+                }
+            } else if (v == viewHolder.iv_back) {
+                if (backListener != null) {
+                    backListener.onClick(v);
+                }
+            } else if (v == viewHolder.iv_share) {
+                if (shareListener != null) {
+                    shareListener.onClick(v);
+                }
+            } else if (v == viewHolder.llt_small) {
+                if (smallListener != null) {
+                    smallListener.onClick(v);
                 }
             }
             show();

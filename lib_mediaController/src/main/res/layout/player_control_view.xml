@@ -17,6 +17,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/iv_back"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:paddingLeft="5dp"
@@ -24,7 +25,7 @@
             android:src="@drawable/bg_title_back_btn" />
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -36,6 +37,7 @@
             android:textSize="15sp" />
 
         <ImageView
+            android:id="@+id/iv_share"
             android:layout_width="42dp"
             android:layout_height="42dp"
             android:layout_marginRight="3dp"
@@ -43,6 +45,7 @@
             android:src="@drawable/img_create_room" />
 
         <LinearLayout
+            android:id="@+id/llt_small"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginRight="3dp"

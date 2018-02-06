@@ -3,10 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <org.videolan.vlc.VlcVideoView
         android:id="@+id/VlcVideoView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <com.thl.www.mediaController.VideoGestureRelativeLayout
+        android:id="@+id/ly_VG"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.thl.www.mediaController.ShowChangeLayout
+            android:id="@+id/scl"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true" />
+
+    </com.thl.www.mediaController.VideoGestureRelativeLayout>
+
     <com.thl.www.mediaController.PlayerControlView
         android:id="@+id/PlayerControlView"
         android:layout_width="match_parent"

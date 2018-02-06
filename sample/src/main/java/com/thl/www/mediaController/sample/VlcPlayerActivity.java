@@ -71,6 +71,25 @@ public class VlcPlayerActivity extends AppCompatActivity implements VideoGesture
                 Toast.makeText(VlcPlayerActivity.this, "onClick Prev", Toast.LENGTH_SHORT).show();
             }
         });
+        mPlayerControlView.setBackListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(VlcPlayerActivity.this, "onClick setBackListener", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mPlayerControlView.setShareListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(VlcPlayerActivity.this, "onClick setShareListener", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mPlayerControlView.setSmallListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(VlcPlayerActivity.this, "onClick setSmallListener", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mPlayerControlView.getViewHolder().tv_title.setText("hahahah");
         mPlayerControlView.setPlayer(mVlcVideoView);
 
         ly_VG = (VideoGestureRelativeLayout) findViewById(R.id.ly_VG);
@@ -133,6 +152,12 @@ public class VlcPlayerActivity extends AppCompatActivity implements VideoGesture
     public void onStop() {
         super.onStop();
         mVlcVideoView.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPlayerControlView.unRegisterBatteryReceiver(this);
     }
 
     public void setFullScreen(Context context) {

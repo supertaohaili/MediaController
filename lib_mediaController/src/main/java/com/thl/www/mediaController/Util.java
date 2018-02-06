@@ -6,6 +6,9 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.support.annotation.ColorInt;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 class Util {
 
     static String formatTime(final int timeMs) {
@@ -32,6 +35,11 @@ class Util {
             result += "0" + seconds;
         }
         return result;
+    }
+
+    public static String getNowTime() {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        return format.format(new Date());
     }
 
     static StateListDrawable createStateListDrawable(Drawable drawable, @ColorInt int drawableColor) {

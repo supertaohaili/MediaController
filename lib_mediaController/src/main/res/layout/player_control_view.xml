@@ -60,6 +60,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -69,6 +70,7 @@
             android:textSize="13sp" />
 
         <com.thl.www.mediaController.BatteryView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/mBatteryView"
             android:layout_width="25dp"
             android:layout_height="11dp"
             android:layout_marginLeft="5dp"

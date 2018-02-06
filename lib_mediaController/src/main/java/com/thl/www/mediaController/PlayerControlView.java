@@ -1,7 +1,10 @@
 package com.thl.www.mediaController;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
@@ -40,6 +43,7 @@ public class PlayerControlView extends FrameLayout {
     private int showTimeoutMs;
     public LinearLayout llt_top;
     public LinearLayout llt_bottom;
+    private TextView tv_time;
 
     private OnClickListener nextListener, prevListener;
     private OnClickListener backListener, shareListener, smallListener;
@@ -73,7 +77,9 @@ public class PlayerControlView extends FrameLayout {
         super(context, attrs, defStyleAttr);
         inflate(getContext(), R.layout.player_control_view, this);
         llt_top = (LinearLayout) findViewById(R.id.llt_top);
+        tv_time = (TextView) findViewById(R.id.tv_time);
         llt_bottom = (LinearLayout) findViewById(R.id.llt_bottom);
+        mBatteryView = (BatteryView) findViewById(R.id.mBatteryView);
         viewHolder = new ViewHolder(this);
         fastRewindMs = DEFAULT_FAST_REWIND_MS;
         fastForwardMs = DEFAULT_FAST_FORWARD_MS;
@@ -114,6 +120,7 @@ public class PlayerControlView extends FrameLayout {
         viewHolder.skipPrevButton.setVisibility(View.INVISIBLE);
 
         hide();
+        initBatteryReceiver(context);
     }
 
     protected Drawable toStateListDrawable(Drawable drawable) {
@@ -155,6 +162,7 @@ public class PlayerControlView extends FrameLayout {
     }
 
     void show(int showTimeoutMs) {
+        tv_time.setText(Util.getNowTime());
         showing = true;
         if (onVisibilityChangedListener != null) {
             onVisibilityChangedListener.onShown(this);
@@ -554,6 +562,39 @@ public class PlayerControlView extends FrameLayout {
             dragging = false;
             show();
             post(updateProgressRunnable);
+        }
+    }
+
+
+    protected BatteryView mBatteryView;
+    private BatteryReceiver batteryReceiver;
+
+    private void initBatteryReceiver(Context context) {
+        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        batteryReceiver = new BatteryReceiver();
+        if (context != null) {
+            context.registerReceiver(batteryReceiver, filter);
+        }
+    }
+
+    public void unRegisterBatteryReceiver(Context mContext) {
+        if (batteryReceiver != null && mContext != null) {
+            try {
+                mContext.unregisterReceiver(batteryReceiver);
+                batteryReceiver = null;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public class BatteryReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int current = intent.getExtras().getInt("level");// 获得当前电量
+            int total = intent.getExtras().getInt("scale");// 获得总电量
+            int percent = current * 100 / total;
+            mBatteryView.setBatteryValue(percent);
         }
     }
 }

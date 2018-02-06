@@ -11,8 +11,11 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -34,6 +37,8 @@ public class PlayerControlView extends FrameLayout {
     private int fastRewindMs;
     private int fastForwardMs;
     private int showTimeoutMs;
+    public LinearLayout llt_top;
+    public LinearLayout llt_bottom;
 
     private OnClickListener nextListener, prevListener;
     private OnVisibilityChangedListener onVisibilityChangedListener;
@@ -65,6 +70,8 @@ public class PlayerControlView extends FrameLayout {
     public PlayerControlView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         inflate(getContext(), R.layout.player_control_view, this);
+        llt_top = (LinearLayout) findViewById(R.id.llt_top);
+        llt_bottom = (LinearLayout) findViewById(R.id.llt_bottom);
         viewHolder = new ViewHolder(this);
         fastRewindMs = DEFAULT_FAST_REWIND_MS;
         fastForwardMs = DEFAULT_FAST_FORWARD_MS;
@@ -148,6 +155,18 @@ public class PlayerControlView extends FrameLayout {
             onVisibilityChangedListener.onShown(this);
         }
         setVisibility(VISIBLE);
+        if (llt_top.getVisibility() == GONE) {
+            llt_top.clearAnimation();
+            llt_top.setVisibility(VISIBLE);
+            Animation animationBottom = AnimationUtils.loadAnimation(getContext(), R.anim.anim_enter_from_top);
+            llt_top.startAnimation(animationBottom);
+
+            llt_bottom.clearAnimation();
+            llt_bottom.setVisibility(VISIBLE);
+            Animation animationBottom2 = AnimationUtils.loadAnimation(getContext(), R.anim.anim_enter_from_bottom);
+            llt_bottom.startAnimation(animationBottom2);
+        }
+
         setFocusable(true);
         setFocusableInTouchMode(true);
         setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
@@ -178,7 +197,34 @@ public class PlayerControlView extends FrameLayout {
         }
         removeCallbacks(hideRunnable);
         removeCallbacks(updateProgressRunnable);
-        setVisibility(GONE);
+
+        if (llt_top.getVisibility() == VISIBLE) {
+            llt_top.clearAnimation();
+            llt_top.setVisibility(GONE);
+            Animation animationBottom = AnimationUtils.loadAnimation(getContext(), R.anim.anim_exit_from_top);
+            llt_top.startAnimation(animationBottom);
+
+            llt_bottom.clearAnimation();
+            llt_bottom.setVisibility(GONE);
+            Animation animationBottom2 = AnimationUtils.loadAnimation(getContext(), R.anim.anim_exit_from_bottom);
+            llt_bottom.startAnimation(animationBottom2);
+            animationBottom2.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    setVisibility(GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+        }
     }
 
     public void toggleVisibility() {
@@ -393,6 +439,7 @@ public class PlayerControlView extends FrameLayout {
         public final ImageButton skipNextButton;
         public final ImageButton skipPrevButton;
 
+
         private ViewHolder(View view) {
             controlsBackground = (RelativeLayout) view.findViewById(R.id.controls_background);
             pausePlayButton = (PausePlayButton) view.findViewById(R.id.pause_play);
@@ -403,6 +450,7 @@ public class PlayerControlView extends FrameLayout {
             seekBar = (SeekBar) view.findViewById(R.id.seek_bar);
             totalTimeText = (TextView) view.findViewById(R.id.total_time_text);
             currentTimeText = (TextView) view.findViewById(R.id.current_time_text);
+
         }
     }
 

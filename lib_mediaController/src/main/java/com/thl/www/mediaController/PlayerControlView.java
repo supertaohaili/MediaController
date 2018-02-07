@@ -29,7 +29,7 @@ public class PlayerControlView extends FrameLayout {
 
     public static final int DEFAULT_FAST_REWIND_MS = 5_000;
     public static final int DEFAULT_FAST_FORWARD_MS = 15_000;
-    public static final int DEFAULT_SHOW_TIMEOUT_MS = 3_000;
+    public static final int DEFAULT_SHOW_TIMEOUT_MS = 5_000;
 
     private final ViewHolder viewHolder;
 
